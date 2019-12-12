@@ -1,8 +1,8 @@
-module Milkis.Impl.Window
+module Calpis.Impl.Window
   ( windowFetch
   )
   where
 
-import Milkis.Impl (FetchImpl)
+import Calpis.Impl (FetchImpl)
 
 foreign import windowFetch :: FetchImpl

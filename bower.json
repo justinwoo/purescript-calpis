@@ -1,5 +1,5 @@
 {
-  "name": "purescript-milkis",
+  "name": "purescript-calpis",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -10,10 +10,10 @@
   ],
   "dependencies": {
     "purescript-prelude": "^4.0.0",
-    "purescript-aff-promise": "^2.0.0",
     "purescript-typelevel-prelude": ">=4.0.0 <6.0.0",
     "purescript-foreign-object": "^2.0.1",
-    "purescript-arraybuffer-types": "^2.0.0"
+    "purescript-arraybuffer-types": "^2.0.0",
+    "purescript-bonjiri": "^0.2.0"
   },
   "devDependencies": {
     "purescript-spec": "^4.0.0-rc1"
@@ -28,8 +28,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/justinwoo/purescript-milkis.git"
+    "url": "git://github.com/justinwoo/purescript-calpis.git"
   },
   "license": "MIT",
-  "homepage": "http://lmgtfy.com/?s=b&q=milkis"
+  "homepage": "http://lmgtfy.com/?s=b&q=calpis"
 }

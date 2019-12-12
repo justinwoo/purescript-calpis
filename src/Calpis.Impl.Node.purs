@@ -1,8 +1,8 @@
-module Milkis.Impl.Node
+module Calpis.Impl.Node
   ( nodeFetch
   )
   where
 
-import Milkis.Impl (FetchImpl)
+import Calpis.Impl (FetchImpl)
 
 foreign import nodeFetch :: FetchImpl

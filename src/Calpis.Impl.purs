@@ -1,4 +1,4 @@
-module Milkis.Impl
+module Calpis.Impl
   ( FetchImpl
   )
   where

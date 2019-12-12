@@ -1,4 +1,4 @@
-module Milkis
+module Calpis
   ( URL(..)
   , Fetch
   , Response
@@ -27,15 +27,15 @@ module Milkis
 
 import Type.Row.Homogeneous
 
-import Control.Promise (Promise, toAffE)
+import Bonjiri (JSPromise, PromiseSpec)
+import Bonjiri as B
 import Data.ArrayBuffer.Types (ArrayBuffer)
 import Data.Newtype (class Newtype)
 import Effect (Effect)
-import Effect.Aff (Aff)
 import Foreign (Foreign)
 import Foreign.Object (Object)
 import Foreign.Object as Object
-import Milkis.Impl (FetchImpl)
+import Calpis.Impl (FetchImpl)
 import Prelude (class Eq, class Show, ($))
 import Type.Row (class Union)
 import Unsafe.Coerce (unsafeCoerce)
@@ -56,7 +56,7 @@ type Fetch
    . Union options trash Options
   => URL
   -> Record (method :: Method | options)
-  -> Aff Response
+  -> PromiseSpec Response
 
 type Options =
   ( method :: Method
@@ -108,19 +108,19 @@ defaultFetchOptions =
   }
 
 fetch :: FetchImpl -> Fetch
-fetch impl url' opts = toAffE $ _fetch impl url' opts
+fetch impl url' opts = B.fromEffect $ _fetch impl url' opts
 
-json :: Response -> Aff Foreign
-json res = toAffE (jsonImpl res)
+json :: Response -> Effect (JSPromise Foreign)
+json res = jsonImpl res
 
-text :: Response -> Aff String
-text res = toAffE (textImpl res)
+text :: Response -> Effect (JSPromise String)
+text res = textImpl res
 
 headers :: Response -> Object String
 headers = headersImpl
 
-arrayBuffer :: Response -> Aff ArrayBuffer 
-arrayBuffer res = toAffE (arrayBufferImpl res)
+arrayBuffer :: Response -> Effect (JSPromise ArrayBuffer)
+arrayBuffer res = arrayBufferImpl res
 
 statusCode :: Response -> Int
 statusCode response = response'.status
@@ -141,12 +141,12 @@ foreign import _fetch
    . FetchImpl
   -> URL
   -> Record options
-  -> Effect (Promise Response)
+  -> Effect (JSPromise Response)
 
-foreign import jsonImpl :: Response -> Effect (Promise Foreign)
+foreign import jsonImpl :: Response -> Effect (JSPromise Foreign)
 
-foreign import textImpl :: Response -> Effect (Promise String)
+foreign import textImpl :: Response -> Effect (JSPromise String)
 
 foreign import headersImpl :: Response -> Object String
 
-foreign import arrayBufferImpl :: Response -> Effect (Promise ArrayBuffer)
+foreign import arrayBufferImpl :: Response -> Effect (JSPromise ArrayBuffer)
